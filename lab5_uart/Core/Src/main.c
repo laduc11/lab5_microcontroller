@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "button.h"
 #include "process_uart.h"
+#include "software_timer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -33,6 +34,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+//#define DEBUG
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -69,10 +73,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	if (huart->Instance == USART2)
 	{
 		HAL_UART_Transmit(&huart2, &character_data, 1, 50);
-		havingInput = 0;
 		HAL_UART_Receive_IT(&huart2, &character_data, 1);
 		havingInput = 1;
 	}
+}
+
+void toggle_led()
+{
+	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 }
 /* USER CODE END 0 */
 
@@ -109,38 +117,55 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_ADC_Start(&hadc1);
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   init_button_state();
   init_uart();
+  set_timer(0, 2);	// print ADC value
+  set_timer(1, 2);	// blink led red
+  set_timer(2, 1);	// delay for OK command
 
   havingInput = 0;
   HAL_UART_Receive_IT(&huart2, &character_data, 1);
-  havingInput = 1;
 
   while (1)
   {
-	  uint8_t data[MAX_BUFFER];
-	  HAL_UART_Transmit(&huart2, (void *)data, sprintf(data, "%lu\r", HAL_ADC_GetValue(&hadc1)), 50);
-	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-	  HAL_Delay(500);
+	  if (get_flag(1))
+	  {
+	  	  set_timer(1, 50);
+	  	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+	  }
 
 	  if (havingInput)
 	  {
 		  get_input(character_data);
 		  proccess_buffer();
+#ifdef DEBUG
+		  uint8_t temp[MAX_BUFFER];
+		  HAL_UART_Transmit(&huart2, (uint8_t *)temp, sprintf(temp, "\r processing\r state = %d\r RST = %d\r", get_state(), isRST()), 50);
+#endif
+		  havingInput = 0;
 	  }
 
-	  if (isRST())
+	  if (isRST() == 1 && get_state() != 0)
 	  {
-		  /*
-		   * If RST = true then print the value of ADC
-		   * else stop printing
-		   * */
-
+		  set_timer(2, 300);
 	  }
+
+	  if (isRST() && get_flag(0) && get_flag(2))
+	  {
+		  set_timer(0, 50);
+		  uint32_t ADC_value = HAL_ADC_GetValue(&hadc1);
+		  uint8_t str[MAX_BUFFER];
+//		  HAL_UART_Transmit(&huart2, (uint8_t *)str, sprintf(str, "!ADC = %.3f#\r", (ADC_value * 5.0) / 4095), 50);
+		  HAL_UART_Transmit(&huart2, (uint8_t *)str, sprintf(str, "!ADC = %ld#\r", ADC_value), 50);
+		  }
+
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -347,10 +372,10 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if (htim->Instance == TIM2)
-	{
-		getKey(0);
-	}
+	getKey(0);
+	run_timer(0);
+	run_timer(1);
+	run_timer(2);
 }
 /* USER CODE END 4 */
 

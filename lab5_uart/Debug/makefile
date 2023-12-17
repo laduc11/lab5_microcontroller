@@ -65,7 +65,7 @@ main-build: lab5_uart.elf secondary-outputs
 
 # Tool invocations
 lab5_uart.elf: $(OBJS) $(USER_OBJS) E:\Microcontroller\lab5_microcontroller\lab5_uart\STM32F103C6TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "lab5_uart.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"E:\Microcontroller\lab5_microcontroller\lab5_uart\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab5_uart.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "lab5_uart.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"E:\Microcontroller\lab5_microcontroller\lab5_uart\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab5_uart.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

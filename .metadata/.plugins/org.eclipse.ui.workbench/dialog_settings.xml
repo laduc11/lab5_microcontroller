@@ -10,6 +10,8 @@
 		<item key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
 		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID" value="false"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="E:\Microcontroller\lab4_microcontroller\lab4_SCH\Core\Inc"/>
+			<item value="E:\Microcontroller\lab4_microcontroller\lab4_SCH\Core\Src"/>
 			<item value="E:\Microcontroller\lab3_microcontroller\lab3_button\Core\Src"/>
 			<item value="E:\Microcontroller\lab3_microcontroller\lab3_button\Core\Inc"/>
 			<item value="E:\Microcontroller\test_microcontroller\project_rb\Core\Src"/>

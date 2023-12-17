@@ -1,38 +1,10 @@
-11:48:30 **** Incremental Build of configuration Debug for project lab5_uart ****
+15:34:29 **** Incremental Build of configuration Debug for project lab5_uart ****
 make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../Core/Src/process_uart.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/process_uart.d" -MT"Core/Src/process_uart.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/process_uart.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:117:3: warning: implicit declaration of function 'init_uart' [-Wimplicit-function-declaration]
-  117 |   init_uart();
-      |   ^~~~~~~~~
-../Core/Src/main.c:126:53: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
-  126 |    HAL_UART_Transmit(&huart2, (void *)data, sprintf(data, "%lu\r", HAL_ADC_GetValue(&hadc1)), 50);
-      |                                                     ^~~~
-      |                                                     |
-      |                                                     uint8_t * {aka unsigned char *}
-In file included from ../Core/Inc/process_uart.h:12,
-                 from ../Core/Src/main.c:26:
-e:\stm32\stm32cubeide_1.7.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346\tools\arm-none-eabi\include\stdio.h:244:14: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
-  244 | int sprintf (char *__restrict, const char *__restrict, ...)
-      |              ^
-arm-none-eabi-gcc -o "lab5_uart.elf" @"objects.list"   -mcpu=cortex-m3 -T"E:\Microcontroller\lab5_microcontroller\lab5_uart\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab5_uart.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: lab5_uart.elf
- 
 arm-none-eabi-size   lab5_uart.elf 
-arm-none-eabi-objdump -h -S  lab5_uart.elf  > "lab5_uart.list"
-arm-none-eabi-objcopy  -O ihex  lab5_uart.elf  "lab5_uart.hex"
    text	   data	    bss	    dec	    hex	filename
-  16856	    120	   1848	  18824	   4988	lab5_uart.elf
-arm-none-eabi-objcopy  -O binary  lab5_uart.elf  "lab5_uart.bin"
+  30412	    484	   1884	  32780	   800c	lab5_uart.elf
 Finished building: default.size.stdout
  
-Finished building: lab5_uart.hex
-Finished building: lab5_uart.bin
- 
- 
-Finished building: lab5_uart.list
- 
 
-11:48:31 Build Finished. 0 errors, 2 warnings. (took 858ms)
+15:34:29 Build Finished. 0 errors, 0 warnings. (took 155ms)
 

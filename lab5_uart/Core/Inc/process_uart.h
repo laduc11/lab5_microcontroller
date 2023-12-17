@@ -10,11 +10,13 @@
 
 #include "main.h"
 #include <stdio.h>
+#include <string.h>
 
 #define MAX_BUFFER 30
 
-void get_input(uint8_t characteer);
+void get_input(uint8_t character);
 void proccess_buffer();
 uint8_t isRST();
+uint8_t get_state();
 
 #endif /* INC_PROCESS_UART_H_ */
