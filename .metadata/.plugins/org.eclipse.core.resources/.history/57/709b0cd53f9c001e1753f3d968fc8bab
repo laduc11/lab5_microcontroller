@@ -1,0 +1,39 @@
+/*
+ * process_uart.c
+ *
+ *  Created on: Dec 14, 2023
+ *      Author: DELL
+ */
+
+#include "process_uart.h"
+
+uint8_t buffer[MAX_BUFFER];
+uint32_t indexBuffer;
+uint8_t cmdRST;
+
+/*
+ * Initial start parameter for this module
+ * Input: none
+ * Output: none
+ * */
+void init_uart()
+{
+	indexBuffer = 0;
+	cmdRST = 0;
+}
+
+/*
+ * Get input character form keyboard
+ * Input: character
+ * Output: none
+ * */
+void get_input(uint8_t characteer)
+{
+	if (indexBuffer >= MAX_BUFFER)
+	{
+		indexBuffer = 0;
+	}
+
+	buffer[indexBuffer] = characteer;
+	indexBuffer++;
+}

@@ -1,0 +1,5 @@
+button.c:19:6:init_button_state	16	static
+button.c:37:9:checkState	16	static
+button.c:44:9:isPressed	16	static
+button.c:54:9:isLongPressed	16	static
+button.c:69:6:getKey	24	static

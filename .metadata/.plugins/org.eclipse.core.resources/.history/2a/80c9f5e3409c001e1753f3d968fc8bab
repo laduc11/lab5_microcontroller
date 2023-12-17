@@ -1,0 +1,121 @@
+/*
+ * process_uart.c
+ *
+ *  Created on: Dec 14, 2023
+ *      Author: DELL
+ */
+
+#include "process_uart.h"
+
+uint8_t buffer[MAX_BUFFER];
+uint32_t indexBuffer;
+uint8_t cmdRST, state, havingInput;
+
+/*
+ * Initial start parameter for this module
+ * Input: none
+ * Output: none
+ * */
+void init_uart()
+{
+	havingInput = 0;
+	state = 0;
+	indexBuffer = 0;
+	cmdRST = 0;
+}
+
+/*
+ * Get input character form keyboard
+ * Input: character
+ * Output: none
+ * */
+void get_input(uint8_t characteer)
+{
+	if (indexBuffer >= MAX_BUFFER)
+	{
+		indexBuffer = 0;
+	}
+
+	buffer[indexBuffer] = characteer;
+	indexBuffer++;
+	havingInput = 1;
+}
+
+/*
+ * Finite state machine for RST commnad
+ * Input: state
+ * Output: True or False
+ * */
+uint8_t fsm_RST(uint8_t state_RST)
+{
+	switch (state)
+	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	}
+}
+
+/*
+ * Finite state machine for RST commnad
+ * Input: state
+ * Output: True or False
+ * */
+uint8_t fsm_OK(uint8_ state_OK)
+{
+
+}
+
+/*
+ * Process data in buffer
+ * Input: none
+ * Output: none
+ * */
+void proccess_buffer()
+{
+	havingInput = 0;
+	if (cmdRST == 0 && state < 7)
+	{
+		fsm_RST(state);
+	}
+	else if (cmdRST == 1 && state < 6)
+	{
+		switch (state)
+		{
+		case 0:
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		}
+	}
+}
+
+/* Check the last command is RST or OK
+ * Input: none
+ * Output: True or False
+ * */
+uint8_t isRST()
+{
+	return cmdRST;
+}

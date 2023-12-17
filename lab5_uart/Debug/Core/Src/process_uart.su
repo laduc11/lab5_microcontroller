@@ -1,0 +1,8 @@
+process_uart.c:19:6:init_uart	4	static
+process_uart.c:31:6:get_input	16	static
+process_uart.c:47:9:fsm_RST	16	static
+process_uart.c:117:9:fsm_OK	16	static
+process_uart.c:177:6:proccess_buffer	8	static
+process_uart.c:197:9:isRST	4	static
+process_uart.c:207:6:RSTmode	4	static
+process_uart.c:217:6:OKmode	4	static
